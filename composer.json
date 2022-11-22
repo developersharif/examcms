@@ -1,0 +1,41 @@
+{
+    "name": "developersharif/micro",
+    "description": "PHP micro Framework.",
+    "type": "project",
+    "autoload": {
+        "files": [
+            "system/helper/global.php"
+        ],
+        "psr-4": {
+            "system\\": "system/",
+            "config\\": "config/",
+            "app\\": "app/",
+            "helper\\": "app/helper/"
+        }
+    },
+    "require-dev": {
+        "filp/whoops": "^2.14",
+        "phpunit/phpunit": "^9.5.8"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sharif",
+            "email": "developersharif@yahoo.com"
+        }
+    ],
+    "config": {
+		"optimize-autoloader": true,
+		"prepend-autoloader": false,
+        "platform-check": false
+	},
+    "require": {
+        "simple-crud/simple-crud": "^7.5",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "vlucas/phpdotenv": "^5.5",
+        "phpmailer/phpmailer": "^6.6",
+        "nesbot/carbon": "^2.62.1",
+        "psr/simple-cache": "^1.0|^2.0|^3.0"
+    }
+}
