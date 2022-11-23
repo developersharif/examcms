@@ -63,6 +63,14 @@ function __admin_footer__()
 {
     return view("admin/common/footer");
 }
+function __header__()
+{
+    return view('frontend/common/header');
+}
+function __footer__()
+{
+    return view('frontend/common/footer');
+}
 function asset($location)
 {
     $url = (substr($_ENV['APP_URL'], -1) == '/') ? $_ENV['APP_URL'] : $_ENV['APP_URL'] . '/';
@@ -140,6 +148,50 @@ function auth()
         } else {
             false;
         }
+    }
+}
+function is_admin()
+{
+    if (auth()) {
+        if (user()->role == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function admin_component($component, $roles = ['admin'], $data = [])
+{
+    $db_role = user()->role;
+    if (in_array($db_role, $roles)) {
+        return view($component, $data);
+    } else {
+        redirect(admin_url() . '?error=access_denied');
+        //throw new \Exception('Permission denied!');
+    }
+}
+
+function admin_view_component($component, $roles = ['admin'], $data = [])
+{
+    $db_role = user()->role;
+    if (in_array($db_role, $roles)) {
+        return view($component, $data);
+    }
+}
+
+function user_role()
+{
+    return user()->role;
+}
+function allowed_roles($roles = ['admin'])
+{
+    $db_role = user()->role;
+    if (!in_array($db_role, $roles)) {
+        redirect(admin_url('/logout'));
+        exit;
     }
 }
 //error handler

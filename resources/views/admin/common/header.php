@@ -55,7 +55,7 @@
             <div class="sidebar-heading">
                 Project#1
             </div>
-
+            <?php if (is_admin()) : ?>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -73,6 +73,8 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
+            <?php endif;
+            if (!is_admin()) : ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -88,7 +90,7 @@
                     </div>
                 </div>
             </li>
-
+            <?php endif; ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

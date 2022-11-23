@@ -22,6 +22,8 @@ Route::get('/admin/logout', [AdminController::class, 'logout']);
 Route::any('/admin/teacher/add', ['controller' => AdminController::class, 'add_teacher', 'middleware' => Auth::class]);
 Route::get('/admin/teachers', ['controller' => AdminController::class, 'teachers', 'middleware' => Auth::class]);
 Route::get('/admin/student/add', ['controller' => AdminController::class, 'add_student', 'middleware' => Auth::class]);
+Route::post('/admin/student/add', ['controller' => AdminController::class, 'add_student', 'middleware' => Auth::class]);
 Route::get('/admin/students', ['controller' => AdminController::class, 'students', 'middleware' => Auth::class]);
 Route::get('/admin/exam/add', ['controller' => AdminController::class, 'add_exam', 'middleware' => Auth::class]);
+Route::post('/admin/exam/add', ['controller' => AdminController::class, 'add_exam', 'middleware' => Auth::class]);
 Route::get('/admin/exams', ['controller' => AdminController::class, 'exams', 'middleware' => Auth::class]);

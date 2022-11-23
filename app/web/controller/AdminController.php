@@ -96,28 +96,115 @@ class AdminController
 		}
 		return view("admin/teacher/add");
 	}
-	function subjects()
-	{
-		return view("admin/subject/list");
-	}
-	function add_subject()
-	{
-		return view("admin/subject/add");
-	}
+
 	function students()
 	{
-		return view("admin/student/list");
+		$students = DB()->student
+			->select()
+			->orderBy('id DESC')
+			->get();
+		return view("admin/student/list", ['students' => $students]);
 	}
 	function add_student()
 	{
+		if (isset($_POST['submit']) and $_SERVER['REQUEST_METHOD'] == 'POST' and is_csrf_valid()) {
+			$name = trim(htmlspecialchars($_POST['name']));
+			$email = trim(htmlspecialchars($_POST['email']));
+			$password = $_POST['password'];
+			$department = strtolower(trim(htmlspecialchars($_POST['department'])));
+			$section = strtolower(trim(htmlspecialchars($_POST['section'])));
+			$roll = trim(htmlspecialchars($_POST['roll']));
+			$hash_pass = password_hash($password, PASSWORD_DEFAULT);
+			$users = DB()->student
+				->select()
+				->one()
+				->where('email =', $email)
+				->get();
+			if ($users !== null) {
+				new_error("add_student", "Email already exists");
+				redirect(admin_url("/student/add"));
+			} else {
+				$add = DB()->student
+					->insert([
+						'name' => $name,
+						'email' => $email,
+						'password' => $hash_pass,
+						'department' => $department,
+						'section' => $section,
+						'roll' => $roll,
+						'status' => 1,
+						'created_at' => date('Y-m-d H:i:s')
+					])
+					->run();
+				if ($add) {
+					new_alert("add_student", "Student added successfully");
+					redirect(admin_url("/student/add"));
+				} else {
+					new_error("add_student", "Something went wrong");
+					redirect(admin_url("/student/add"));
+				}
+			}
+		}
+
 		return view("admin/student/add");
 	}
 	function exams()
 	{
-		return view("admin/exam/list");
+		$exams = DB()->exam
+			->select()
+			->where('teacher_id =', user()->id)
+			->orderBy('id DESC')
+			->get();
+		return view("admin/exam/list", ['exams' => $exams]);
 	}
 	function add_exam()
 	{
+
+		if (isset($_POST['submit'])) {
+			$name = trim(htmlspecialchars($_POST['name']));
+			$department = strtolower(trim(htmlspecialchars($_POST['department'])));
+			$section = strtolower(trim(htmlspecialchars($_POST['section'])));
+			$semester = trim(htmlspecialchars($_POST['semester']));
+			$session = trim(htmlspecialchars($_POST['session']));
+			$subject = trim(htmlspecialchars($_POST['subject']));
+			$total_marks = trim(htmlspecialchars($_POST['total_marks']));
+			$start = trim(htmlspecialchars($_POST['date_start']));
+			$end = trim(htmlspecialchars($_POST['date_end']));
+
+			$data = function () {
+				$req = $_POST;
+				$data = [];
+				for ($i = 0; $i < count($req['questions']); $i++) {
+					array_push($data, ['question' => $req['questions'][$i], 'marks' => $req['marks'][$i]]);
+				}
+				return $data;
+			};
+			$questions = ['questions' => $data()];
+			$questions = json_encode($questions);
+			$add = DB()->exam
+				->insert([
+					'name' => $name,
+					'department' => $department,
+					'section' => $section,
+					'semester' => $semester,
+					'session' => $session,
+					'subject' => $subject,
+					'total_mark' => $total_marks,
+					'questions' => $questions,
+					'start' => $start,
+					'end' => $end,
+					'teacher_id' => user()->id,
+					'created_at' => date('Y-m-d H:i:s')
+				])
+				->run();
+			if ($add) {
+				new_alert("add_exam", "Exam created successfully");
+				redirect(admin_url("/exam/add"));
+			} else {
+				new_error("add_exam", "Something went wrong");
+				redirect(admin_url("/exam/add"));
+			}
+		}
 		return view("admin/exam/add");
 	}
 }
