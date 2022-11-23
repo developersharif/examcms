@@ -19,7 +19,32 @@ class HomeController extends Controller
     }
     function check_login()
     {
-        dd($_POST);
+        if (isset($_POST['submit']) and $_SERVER['REQUEST_METHOD'] == 'POST' and is_csrf_valid()) {
+
+            $email  = trim(htmlspecialchars($_POST['email']));
+            $password = $_POST['password'];
+            $users = DB()->student
+                ->select()
+                ->one()
+                ->where('email =', $email)
+                ->where('status =', 1)
+                ->get();
+            if ($users !== null) {
+                $db_pass = $users->password;
+                $pass_verify = password_verify($password, $db_pass);
+                if ($users->status == 1 and $pass_verify) {
+                    create_session("c_user", $users->id);
+                    redirect(base_url());
+                    exit;
+                } else {
+                    new_error("login", "Email or password is invalid");
+                    redirect(base_url() . 'login');
+                }
+            } else {
+                new_error("login", "Wrong info");
+                redirect(base_url() . 'login');
+            }
+        }
     }
     function register()
     {
@@ -40,5 +65,10 @@ class HomeController extends Controller
     function profile()
     {
         return view('frontend/profile');
+    }
+    function logout()
+    {
+        session_destroy();
+        redirect(base_url() . 'login');
     }
 }

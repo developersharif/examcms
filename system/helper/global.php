@@ -91,6 +91,11 @@ function url($link)
     $url = (substr($_ENV['APP_URL'], -1) == '/') ? $_ENV['APP_URL'] : $_ENV['APP_URL'] . '/';
     echo $url . $link;
 }
+function base_url()
+{
+    $url = (substr($_ENV['APP_URL'], -1) == '/') ? $_ENV['APP_URL'] : $_ENV['APP_URL'] . '/';
+    return $url;
+}
 function is_assoc(array $arr)
 {
     if (array() === $arr) return false;

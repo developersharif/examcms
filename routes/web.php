@@ -9,6 +9,7 @@ use app\web\middleware\Auth;
 Route::any('/', [HomeController::class]);
 Route::get('/login', [HomeController::class, 'login']);
 Route::post('/login', [HomeController::class, 'check_login']);
+Route::get('/logout', [HomeController::class, 'logout']);
 Route::get('/registration', [HomeController::class, 'register']);
 Route::post('/registration', [HomeController::class, 'check_register']);
 Route::get('/profile', [HomeController::class, 'profile']);
