@@ -112,6 +112,8 @@ class AdminController
 			$email = trim(htmlspecialchars($_POST['email']));
 			$password = $_POST['password'];
 			$department = strtolower(trim(htmlspecialchars($_POST['department'])));
+			$session = strtolower(trim(htmlspecialchars($_POST['session'])));
+			$semester = strtolower(trim(htmlspecialchars($_POST['semester'])));
 			$section = strtolower(trim(htmlspecialchars($_POST['section'])));
 			$roll = trim(htmlspecialchars($_POST['roll']));
 			$hash_pass = password_hash($password, PASSWORD_DEFAULT);
@@ -130,6 +132,8 @@ class AdminController
 						'email' => $email,
 						'password' => $hash_pass,
 						'department' => $department,
+						'session' => $session,
+						'semester' => $semester,
 						'section' => $section,
 						'roll' => $roll,
 						'status' => 1,

@@ -143,6 +143,24 @@ function user()
         }
     }
 }
+function student()
+{
+    if (isset($_SESSION['c_user'])) {
+        $id = $_SESSION['c_user'];
+        $users = DB()->student
+            ->select()
+            ->one()
+            ->where('id =', $id)
+            ->get();
+        if ($users != null) {
+            return $users;
+        } else {
+            return false;
+        }
+    }
+}
+
+
 function auth()
 {
     if (isset($_SESSION['c_user'])) {

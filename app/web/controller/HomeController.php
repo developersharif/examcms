@@ -11,7 +11,16 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('frontend/homepage');
+        $exams = DB()->exam
+            ->select()
+            ->where('department =', student()->department)
+            ->where('semester =', student()->semester)
+            ->where('session =', student()->session)
+            ->where('section =', student()->section)
+            ->where('status =', 1)
+            ->orderBy('id DESC')
+            ->get();
+        return view('frontend/homepage', ['exams' => $exams]);
     }
     function login()
     {
@@ -56,11 +65,21 @@ class HomeController extends Controller
     }
     function exam($id)
     {
-        echo $id;
+        $exam = DB()->exam
+            ->select()
+            ->one()
+            ->where('id =', $id)
+            ->where('status =', 1)
+            ->get();
+        return view("frontend/exam/exam", ['exam' => $exam]);
     }
     function result($id)
     {
-        echo $id;
+        return view("frontend/result");
+    }
+    function results()
+    {
+        return view("frontend/results");
     }
     function profile()
     {

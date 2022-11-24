@@ -1,21 +1,42 @@
-<?php __header__(); ?>
+<?php
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </div>
-        </div>
-    </div>
-</nav>
+use Carbon\Carbon;
 
+__header__(); ?>
+
+
+<div class="container">
+    <h2>Exams:</h2>
+    <ul class="list-group">
+        <?php foreach ($exams as $exam) : ?>
+        <li class="list-group-item clearfix">
+            <a href="exam/<?php print $exam->id; ?>"><img class="img-responsive img-rounded"
+                    src="https://avatars.dicebear.com/api/identicon/<?php print $exam->name; ?>.svg" alt="" />
+                <h3 class="list-group-item-heading">
+                    <?php print $exam->name; ?>
+                    <span class="badge badge-pill badge-primary""><?php print $exam->subject; ?></span>
+            </h3></a>
+            <p class=" list-group-item-text lead">
+                        Teacher: <?php print userinfo($exam->teacher_id)->name; ?> <br />
+                        Marks: <?php print   $exam->total_mark;
+                                    $start = Carbon::create($exam->start);
+                                    $class = ($start->greaterThan(Carbon::now())) ? 'bg-success' : 'bg-danger';
+                                    ?> <br />
+                        <b class="<?php print $class; ?> text-white">Start:
+                        </b><?php
+                                print(Carbon::parse($exam->start)->toDayDateTimeString()); ?>
+                        <b> End:</b> <?php print(Carbon::parse($exam->end)->toDayDateTimeString()); ?>
+                        </p>
+
+        </li>
+        <?php endforeach; ?>
+
+    </ul>
+</div>
+<footer>
+    <center>
+        <br>
+        <h4>#Developed By sharif</h4>
+    </center>
+</footer>
 <?php __footer__(); ?>

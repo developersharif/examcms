@@ -4,17 +4,17 @@ use system\router\Route;
 use app\web\controller\HomeController;
 use app\web\controller\AdminController;
 use app\web\middleware\Auth;
+use app\web\middleware\UserAuth;
 /* User Routes */
 
-Route::any('/', [HomeController::class]);
+Route::any('/', ['controller' => HomeController::class, 'index', 'middleware' => UserAuth::class]);
 Route::get('/login', [HomeController::class, 'login']);
 Route::post('/login', [HomeController::class, 'check_login']);
 Route::get('/logout', [HomeController::class, 'logout']);
-Route::get('/registration', [HomeController::class, 'register']);
-Route::post('/registration', [HomeController::class, 'check_register']);
-Route::get('/profile', [HomeController::class, 'profile']);
-Route::get('/exam/$id', [HomeController::class, 'exam']);
-Route::get('/exam/result/$id', [HomeController::class, 'result']);
+Route::get('/profile', ['controller' => HomeController::class, 'profile', 'middleware' => UserAuth::class]);
+Route::get('/exam/$id', ['controller' => HomeController::class, 'exam', 'middleware' => UserAuth::class]);
+Route::get('/result/$id', ['controller' => HomeController::class, 'result', 'middleware' => UserAuth::class]);
+Route::get('/results', ['controller' => HomeController::class, 'results', 'middleware' => UserAuth::class]);
 /* admin routes */
 Route::get('/admin', ['controller' => AdminController::class, 'index', 'middleware' => Auth::class]);
 Route::get('/admin/login', [AdminController::class, 'login']);
