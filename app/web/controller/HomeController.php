@@ -71,8 +71,37 @@ class HomeController extends Controller
             ->where('id =', $id)
             ->where('status =', 1)
             ->get();
+        if (isset($_POST['submit'])) {
+            $answers = function () {
+                $req = $_POST;
+                $data = [];
+                for ($i = 0; $i < count($req['answer']); $i++) {
+                    array_push($data, ['answers' => $req['answer'][$i], 'marks' => $req['marks'][$i]]);
+                }
+                return $data;
+            };
+            $data = [
+                'student_id' => student()->id,
+                'teacher_id' => $exam->teacher_id,
+                'question_id' => $id,
+                'answers' => json_encode($answers()),
+                'status' => 1,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $insert = DB()->attend
+                ->insert($data)
+                ->run();
+            if ($insert) {
+                new_alert("exam", "Your Answers submitted successfully");
+                redirect(base_url() . 'exam/' . $id);
+            } else {
+                new_error("exam", "Something went wrong");
+                redirect(base_url() . 'exam/' . $id);
+            }
+        }
         return view("frontend/exam/exam", ['exam' => $exam]);
     }
+
     function result($id)
     {
         return view("frontend/result");

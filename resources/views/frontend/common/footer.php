@@ -1,4 +1,10 @@
 </body>
+<footer>
+    <center>
+        <br>
+        <h4>#Developed By sharif</h4>
+    </center>
+</footer>
 <script src="<?php asset("admin/vendor/jquery/jquery.min.js"); ?>"></script>
 <script src="<?php asset("admin/vendor/bootstrap/js/bootstrap.bundle.min.js"); ?>"></script>
 

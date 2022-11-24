@@ -12,7 +12,7 @@ Route::get('/login', [HomeController::class, 'login']);
 Route::post('/login', [HomeController::class, 'check_login']);
 Route::get('/logout', [HomeController::class, 'logout']);
 Route::get('/profile', ['controller' => HomeController::class, 'profile', 'middleware' => UserAuth::class]);
-Route::get('/exam/$id', ['controller' => HomeController::class, 'exam', 'middleware' => UserAuth::class]);
+Route::any('/exam/$id', ['controller' => HomeController::class, 'exam', 'middleware' => UserAuth::class]);
 Route::get('/result/$id', ['controller' => HomeController::class, 'result', 'middleware' => UserAuth::class]);
 Route::get('/results', ['controller' => HomeController::class, 'results', 'middleware' => UserAuth::class]);
 /* admin routes */

@@ -11,7 +11,7 @@ __header__(); ?>
         <?php foreach ($exams as $exam) : ?>
         <li class="list-group-item clearfix">
             <a href="exam/<?php print $exam->id; ?>"><img class="img-responsive img-rounded"
-                    src="https://avatars.dicebear.com/api/identicon/<?php print $exam->name; ?>.svg" alt="" />
+                    src="https://avatars.dicebear.com/api/identicon/<?php print $exam->subject; ?>.svg" alt="" />
                 <h3 class="list-group-item-heading">
                     <?php print $exam->name; ?>
                     <span class="badge badge-pill badge-primary""><?php print $exam->subject; ?></span>
@@ -19,8 +19,8 @@ __header__(); ?>
             <p class=" list-group-item-text lead">
                         Teacher: <?php print userinfo($exam->teacher_id)->name; ?> <br />
                         Marks: <?php print   $exam->total_mark;
-                                    $start = Carbon::create($exam->start);
-                                    $class = ($start->greaterThan(Carbon::now())) ? 'bg-success' : 'bg-danger';
+                                    $end = Carbon::create($exam->end);
+                                    $class = ($end->greaterThan(Carbon::now())) ? 'bg-success' : 'bg-danger';
                                     ?> <br />
                         <b class="<?php print $class; ?> text-white">Start:
                         </b><?php
@@ -33,10 +33,5 @@ __header__(); ?>
 
     </ul>
 </div>
-<footer>
-    <center>
-        <br>
-        <h4>#Developed By sharif</h4>
-    </center>
-</footer>
+
 <?php __footer__(); ?>
