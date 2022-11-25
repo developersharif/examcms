@@ -28,3 +28,5 @@ Route::get('/admin/students', ['controller' => AdminController::class, 'students
 Route::get('/admin/exam/add', ['controller' => AdminController::class, 'add_exam', 'middleware' => Auth::class]);
 Route::post('/admin/exam/add', ['controller' => AdminController::class, 'add_exam', 'middleware' => Auth::class]);
 Route::get('/admin/exams', ['controller' => AdminController::class, 'exams', 'middleware' => Auth::class]);
+Route::any('/admin/check/$id', ['controller' => AdminController::class, 'check_exam', 'middleware' => Auth::class]);
+Route::any('/admin/attend', ['controller' => AdminController::class, 'exam_attend', 'middleware' => Auth::class]);

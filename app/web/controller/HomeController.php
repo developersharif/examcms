@@ -85,7 +85,7 @@ class HomeController extends Controller
                 'teacher_id' => $exam->teacher_id,
                 'question_id' => $id,
                 'answers' => json_encode($answers()),
-                'status' => 1,
+                'status' => 0,
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $insert = DB()->attend

@@ -211,4 +211,19 @@ class AdminController
 		}
 		return view("admin/exam/add");
 	}
+	function check_exam($id)
+	{
+		$answer = DB()->attend->select()->one()->where('id =', $id)->get();
+		$update = DB()->attend->update(['status' => 1])->where('id =', $id);
+		$update();
+		if (isset($_POST['submit'])) {
+			dd($_POST);
+		}
+		return view("admin/exam/check", ['answer' => $answer]);
+	}
+	function exam_attend()
+	{
+		$attends = DB()->attend->select()->where('teacher_id =', user()->id)->orderBy('id DESC')->get();
+		return view("admin/exam/attend", ['attends' => $attends]);
+	}
 }

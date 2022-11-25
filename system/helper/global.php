@@ -127,6 +127,51 @@ function userinfo(int $id)
         return false;
     }
 }
+function attend_table($id)
+{
+    $attend = DB()->attend
+        ->select()
+        ->one()
+        ->where('id =', $id)
+        ->get();
+    if ($attend != null) {
+        return $attend;
+    } else {
+        return false;
+    }
+}
+function student_table($id)
+{
+    $student = DB()->student
+        ->select()
+        ->one()
+        ->where('id =', $id)
+        ->get();
+    if ($student != null) {
+        return $student;
+    } else {
+        return false;
+    }
+}
+function exam_table($id)
+{
+    $exam = DB()->exam
+        ->select()
+        ->one()
+        ->where('id =', $id)
+        ->get();
+    if ($exam != null) {
+        return $exam;
+    } else {
+        return false;
+    }
+}
+function attend_counter()
+{
+    $attends = DB()->attend->select()->where('status =', 0)->get();
+    $count = $attends->count();
+    return ($count) ? $count . '+' : null;
+}
 function user()
 {
     if (isset($_SESSION['c_user'])) {

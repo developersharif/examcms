@@ -11,7 +11,11 @@
     <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?php asset("admin/vendor/fontawesome-free/css/all.min.css"); ?>" rel="stylesheet" type="text/css">
+    <link href="<?php
+
+                use Carbon\Carbon;
+
+                asset("admin/vendor/fontawesome-free/css/all.min.css"); ?>" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -87,6 +91,7 @@
                         <h6 class="collapse-header">Exam Section:</h6>
                         <a class="collapse-item" href="<?php url('admin/exam/add'); ?>">Add Exam</a>
                         <a class="collapse-item" href="<?php url('admin/exams'); ?>">Exam List</a>
+                        <a class="collapse-item" href="<?php url('admin/attend'); ?>">Attend List</a>
                     </div>
                 </div>
             </li>
@@ -181,7 +186,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">2+</span>
+                                <span class="badge badge-danger badge-counter"><?php print attend_counter(); ?></span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -189,28 +194,28 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <?php
+                                $notice = DB()->attend->select()->where('status =', 0)->orderBy('id DESC')->get();
+                                foreach ($notice as $alert) {
+                                ?>
+                                <a class="dropdown-item d-flex align-items-center" href="<?php url('admin/check/');
+                                                                                                print $alert->id; ?>">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">student dash attended to the Math exam!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
+                                        <div class="small text-gray-500">
+                                            <?php print Carbon::parse($alert->created_at)->toDayDateTimeString(); ?>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        Custom message
+                                        <span class="font-weight-bold">
+                                            <?php print student_table($alert->student_id)->name; ?> attended to the
+                                            <?php print exam_table($alert->question_id)->subject; ?>
+                                            exam!</span>
                                     </div>
                                 </a>
+                                <?php } ?>
 
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
