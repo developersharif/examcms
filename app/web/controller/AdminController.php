@@ -251,4 +251,9 @@ class AdminController
 		$attends = DB()->attend->select()->where('teacher_id =', user()->id)->orderBy('id DESC')->get();
 		return view("admin/exam/attend", ['attends' => $attends]);
 	}
+	function exam_results()
+	{
+		$results = DB()->result->select()->where('teacher_id =', user()->id)->orderBy('id DESC')->get();
+		return view("admin/exam/results", ['results' => $results]);
+	}
 }

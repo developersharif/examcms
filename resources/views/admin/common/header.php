@@ -92,6 +92,7 @@
                         <a class="collapse-item" href="<?php url('admin/exam/add'); ?>">Add Exam</a>
                         <a class="collapse-item" href="<?php url('admin/exams'); ?>">Exam List</a>
                         <a class="collapse-item" href="<?php url('admin/attend'); ?>">Attend List</a>
+                        <a class="collapse-item" href="<?php url('admin/exam/results'); ?>">Results</a>
                     </div>
                 </div>
             </li>

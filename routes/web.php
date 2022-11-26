@@ -30,3 +30,4 @@ Route::post('/admin/exam/add', ['controller' => AdminController::class, 'add_exa
 Route::get('/admin/exams', ['controller' => AdminController::class, 'exams', 'middleware' => Auth::class]);
 Route::any('/admin/check/$id', ['controller' => AdminController::class, 'check_exam', 'middleware' => Auth::class]);
 Route::any('/admin/attend', ['controller' => AdminController::class, 'exam_attend', 'middleware' => Auth::class]);
+Route::any('/admin/exam/results', ['controller' => AdminController::class, 'exam_results', 'middleware' => Auth::class]);
