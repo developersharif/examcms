@@ -108,11 +108,13 @@ class HomeController extends Controller
     }
     function results()
     {
-        return view("frontend/results");
+        $resutls = DB()->result->select()->where('student_id =', user()->id)->orderBy('id DESC')->get();
+        return view("frontend/results", ['results' => $resutls]);
     }
     function profile()
     {
-        return view('frontend/profile');
+        $profile = DB()->student->select()->where('id =', user()->id)->one()->get();
+        return view('frontend/profile', ['profile' => $profile]);
     }
     function logout()
     {

@@ -33,8 +33,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="<?php print base_url(); ?>">Home</a>
-                    <a class="nav-link" href="<?php print base_url() . 'profile'; ?>">Profile</a>
                     <a class="nav-link" href="<?php print base_url() . 'results'; ?>">Result</a>
+                    <a class="nav-link" href="<?php print base_url() . 'profile'; ?>">Profile</a>
                     <a class="nav-link" href="<?php print base_url() . 'logout'; ?>">Logout</a>
 
                 </div>
