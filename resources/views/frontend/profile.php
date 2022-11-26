@@ -36,15 +36,19 @@
 <div class="student-profile py-4">
     <div class="container">
         <div class="row">
+
             <div class="col-lg-4">
+
                 <div class="card shadow-sm">
+
                     <div class="card-header bg-transparent text-center">
                         <img class="profile_img" src="https://placeimg.com/640/480/arch/any" alt="">
                         <h3><?php print $profile->name; ?></h3>
                     </div>
                     <div class="card-body">
-                        <p class="mb-0"><strong class="pr-1">Session:</strong><?php print $profile->session; ?></p>
                         <p class="mb-0"><strong class="pr-1">Department:</strong><?php print $profile->department; ?>
+                        </p>
+                        <p class="mb-0"><strong class="pr-1">Email:</strong><?php print $profile->email; ?>
                         </p>
 
                     </div>
@@ -61,6 +65,11 @@
                                 <th width="30%">Roll</th>
                                 <td width="2%">:</td>
                                 <td><?php print $profile->roll; ?></td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Semester</th>
+                                <td width="2%">:</td>
+                                <td><?php print $profile->semester; ?></td>
                             </tr>
                             <tr>
                                 <th width="30%">Session</th>

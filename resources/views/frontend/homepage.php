@@ -12,12 +12,12 @@ __header__(); ?>
         <li class="list-group-item clearfix">
             <a href="exam/<?php print $exam->id; ?>"><img class="img-responsive img-rounded"
                     src="https://avatars.dicebear.com/api/identicon/<?php print $exam->subject; ?>.svg" alt="" />
-                <h3 class="list-group-item-heading">
+                <h5 class="list-group-item-heading">
                     <?php print $exam->name; ?>
                     <span class="badge badge-pill badge-primary"><?php print $exam->subject; ?></span>
-                </h3>
+                </h5>
             </a>
-            <p class=" list-group-item-text lead">
+            <p class=" list-group-item-text ">
                 Teacher: <?php print userinfo($exam->teacher_id)->name; ?> <br />
                 Marks: <?php print   $exam->total_mark;
                             $end = Carbon::create($exam->end);

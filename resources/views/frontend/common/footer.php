@@ -2,7 +2,7 @@
 <footer>
     <center>
         <br>
-        <h4>#Developed By sharif</h4>
+        <p>#Developed By sharif</p>
     </center>
 </footer>
 <script src="<?php asset("admin/vendor/jquery/jquery.min.js"); ?>"></script>

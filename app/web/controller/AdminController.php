@@ -6,7 +6,15 @@ class AdminController
 {
 	function index()
 	{
-		return view("admin/home/index");
+		$students = DB()->student->select()->get()->count();
+		$teacher = DB()->users->select()->where('role =', 'teacher')->get()->count();
+		$exams = DB()->exam->select()->get()->count();
+		$couner = [
+			'student' => $students,
+			'teacher' => $teacher,
+			'exams' => $exams
+		];
+		return view("admin/home/index", ['counter' => $couner]);
 	}
 	function login()
 	{
