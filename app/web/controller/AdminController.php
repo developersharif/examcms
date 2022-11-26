@@ -213,11 +213,28 @@ class AdminController
 	}
 	function check_exam($id)
 	{
+
 		$answer = DB()->attend->select()->one()->where('id =', $id)->get();
-		$update = DB()->attend->update(['status' => 1])->where('id =', $id);
-		$update();
+		if ($answer->status !== 1) {
+			$update = DB()->attend->update(['status' => 1])->where('id =', $id);
+			$update();
+		}
+
 		if (isset($_POST['submit'])) {
-			dd($_POST);
+			$teacher_marks = $_POST['marks'];
+			$student_marks = json_encode($teacher_marks);
+
+			$insert = DB()->result->insert([
+				'question_id' => $answer->question_id,
+				'student_id' => $answer->student_id,
+				'teacher_marks' => $student_marks,
+				'teacher_id' => $answer->teacher_id,
+				'created_at' => date('Y-m-d H:i:s')
+			])->run();
+			if ($insert) {
+				new_alert("check_exam", "Marks added successfully");
+				redirect(admin_url("/check/$id"));
+			}
 		}
 		return view("admin/exam/check", ['answer' => $answer]);
 	}

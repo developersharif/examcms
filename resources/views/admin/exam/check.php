@@ -12,8 +12,10 @@ $question = json_decode($question_info->questions);
 ?>
 <div class="row">
     <div class="col col-md-11 mx-auto">
+
         <div class="card">
             <div class=" card-header">
+                <?php notify("check_exam"); ?>
                 <h3><?php print $question_info->name; ?></h3>
                 <hr>
                 <p><?php print $question_info->department . ' (' . $question_info->session . ') ' . $question_info->semester . ' semester'; ?>
