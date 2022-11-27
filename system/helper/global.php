@@ -218,6 +218,18 @@ function auth()
         }
     }
 }
+function is_student()
+{
+    if (isset($_SESSION['c_user'])) {
+        $id = $_SESSION['c_user'];
+        $user = student_table($id);
+        if ($user != null) {
+            return true;
+        } else {
+            false;
+        }
+    }
+}
 function is_admin()
 {
     if (auth()) {
