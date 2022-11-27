@@ -1,4 +1,8 @@
-<?php __header__();
+<?php
+
+use Carbon\Carbon;
+
+__header__();
 ?>
 <div class="container">
     <div class="row">
@@ -16,7 +20,7 @@
                     <p><span class="badge badge-pill badge-primary"><?php print $subject; ?></span></p>
                     <p>Marks: <?php print $marks; ?></p>
                     <p>Teacher: <?php print $teacher; ?></p>
-                    <p>Published:2 hrs ago</p>
+                    <p>Published:<?php print Carbon::parse($result->created_at)->diffForHumans(); ?></p>
                 </li>
                 <?php endforeach; ?>
 
