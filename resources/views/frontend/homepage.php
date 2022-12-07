@@ -17,16 +17,18 @@ __header__(); ?>
                     <span class="badge badge-pill badge-primary"><?php print $exam->subject; ?></span>
                 </h5>
             </a>
-            <p class=" list-group-item-text ">
-                Teacher: <?php print userinfo($exam->teacher_id)->name; ?> <br />
-                Marks: <?php print   $exam->total_mark;
-                            $end = Carbon::create($exam->end);
-                            $class = ($end->greaterThan(Carbon::now())) ? 'bg-success' : 'bg-danger';
-                            ?> <br />
-                <b class="<?php print $class; ?> text-white">Start:
-                </b><?php
-                        print(Carbon::parse($exam->start)->toDayDateTimeString()); ?>
-                <b> End:</b> <?php print(Carbon::parse($exam->end)->toDayDateTimeString()); ?>
+            <!-- <p class=" list-group-item-text "> -->
+            <!-- Teacher: <?php //print userinfo($exam->teacher_id)->name;
+                                ?> -->
+
+            Marks: <?php print   $exam->total_mark;
+                        $end = Carbon::create($exam->end);
+                        $class = ($end->greaterThan(Carbon::now())) ? 'bg-success' : 'bg-danger';
+                        ?> <br />
+            <b class="<?php print $class; ?> text-white">Start:
+            </b><?php
+                    print(Carbon::parse($exam->start)->toDayDateTimeString()); ?>
+            <b> End:</b> <?php print(Carbon::parse($exam->end)->toDayDateTimeString()); ?>
             </p>
 
         </li>
